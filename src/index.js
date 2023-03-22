@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {createRoot} from "react-dom/client";
 
-const App = () =>{
+const App = () => {
     const [activities, setActivities] = useState([])
     const [routines, setRoutines] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
@@ -24,7 +24,7 @@ const App = () =>{
 
             const data = await response.json();
 
-            setActivities(data);
+            setRoutines(data);
         } catch (error) {
             console.log(error);
         }
@@ -58,10 +58,8 @@ const App = () =>{
         fetchRoutines
     },[])
 
-    return(
-       <div>
-        hello
-       </div> 
+    return (
+        <div>Hi</div>
     )
 }
 
