@@ -1,7 +1,6 @@
 {
   "name": "fitnesstrackerfrontend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
@@ -27,5 +26,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Worst-Pace-Scenario/fitnessTrackerFrontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Worst-Pace-Scenario/fitnessTrackerFrontend/issues"
+  },
+  "homepage": "https://github.com/Worst-Pace-Scenario/fitnessTrackerFrontend#readme",
+  "description": ""
 }
