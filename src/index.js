@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {createRoot} from "react-dom/client";
 import { BrowserRouter,Route, Routes, Link } from "react-router-dom";
-import { Nav,Home } from "./components";
+import { Nav,Home,Activities } from "./components";
 
 
 const App = () => {
@@ -70,6 +70,7 @@ const App = () => {
 
             <Routes>
                 <Route path="/" element={<Home />}/>
+                <Route path="activities" element={<Activities />}/>
             </Routes>
         </BrowserRouter>
     )
