@@ -59,10 +59,12 @@ const App = () => {
         fetchActivities();
         fetchCurrentUser();
         fetchRoutines();
-        console.log(activities, routines, currentUser)
+        
     },[])
 
-    return (
+    console.log(activities, routines, currentUser)
+
+    return ( 
         <BrowserRouter>
             <Nav currentUser = {currentUser}/>
 
