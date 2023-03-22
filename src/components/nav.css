@@ -1,0 +1,29 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    margin: 1%;
+    font-size: larger;
+}
+
+#navButtons{
+    margin: 1%;
+    padding: 1%;
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+
+#navLogo{
+    margin: 1%;
+    padding: 1%;
+    font-size: larger;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

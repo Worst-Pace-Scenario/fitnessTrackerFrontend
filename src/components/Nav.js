@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "./nav.css"
 
 const Nav = (props) =>{
     const {currentUser, setCurrentUser} = props;
@@ -11,7 +12,7 @@ const Nav = (props) =>{
 
     return (
     <nav>
-        <div id="navLogo">Worst Pace Scenario</div>
+        <Link to="/" id="navLogo">Worst Pace Scenario</Link>
         {
             currentUser ? 
             <div id="navButtons">
@@ -21,7 +22,10 @@ const Nav = (props) =>{
                 <Link to="/" onClick={logout}>Logout</Link>
             </div> : 
             <div id="navButtons">
-
+                <Link to="/activites">Activities</Link>
+                <Link to="routines">Routines</Link>
+                <Link to="/login">Login</Link>
+                <Link to="register">Register</Link>
             </div>
         }
     </nav>
