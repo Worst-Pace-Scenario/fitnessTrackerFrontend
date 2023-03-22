@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import {createRoot} from "react-dom/client";
+import { BrowserRouter,Route, Routes, Link } from "react-router-dom";
+import { Nav,Home } from "./components";
+
 
 const App = () => {
     const [activities, setActivities] = useState([])
@@ -59,7 +62,13 @@ const App = () => {
     },[])
 
     return (
-        <div>Hi</div>
+        <BrowserRouter>
+            <Nav currentUser = {currentUser}/>
+
+            <Routes>
+                <Route path="/" element={<Home />}/>
+            </Routes>
+        </BrowserRouter>
     )
 }
 
