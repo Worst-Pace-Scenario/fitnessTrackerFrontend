@@ -11,7 +11,7 @@ const App = () => {
 
     async function fetchActivities(){
         try {
-            const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/activties`)
+            const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/activities`)
 
             const data = await response.json();
 
@@ -56,9 +56,10 @@ const App = () => {
     }
 
     useEffect(()=>{
-        fetchActivities;
-        fetchCurrentUser;
-        fetchRoutines
+        fetchActivities();
+        fetchCurrentUser();
+        fetchRoutines();
+        console.log(activities, routines, currentUser)
     },[])
 
     return (
