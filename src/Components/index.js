@@ -1,2 +1,2 @@
-export { default as UserRegistration } from "./UserRegistration"
+export { default as UsersRegistration } from "./UsersRegistration"
 export { default as UserLogin } from "./UserLogin"
