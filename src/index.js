@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {createRoot} from "react-dom/client";
 import { BrowserRouter,Route, Routes, Link } from "react-router-dom";
-import { Nav,Home,Activities } from "./components";
+import { Nav,Home, Activities, MyRoutines, UserLogin, UserRegistration } from "./components";
 
 
 const App = () => {
@@ -66,11 +66,10 @@ const App = () => {
 
     return ( 
         <BrowserRouter>
-            <Nav currentUser = {currentUser}/>
+            <Nav currentUser = {currentUser} />
 
             <Routes>
                 <Route path="/" element={<Home />}/>
-                <Route path="activities" element={<Activities />}/>
             </Routes>
         </BrowserRouter>
     )
