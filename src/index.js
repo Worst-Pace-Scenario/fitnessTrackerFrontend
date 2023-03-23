@@ -76,7 +76,7 @@ const App = () => {
                 {/* <Route path="/myroutines" element={<MyRoutines routines={routines} currentUser={currentUser}/>}/> */}
                 <Router path="/mysingleroutine" element={<MySingleRoutine routines={routines} activities={activites} currentUser={currentUser}/>}/>
                 <Route path="/login" element={<UserLogin />}/>
-                <Route path="/register" element={<UserRegistration />}/>
+                <Route path="/register" element={<UsersRegistration />}/>
             </Routes>
         </BrowserRouter>
     )

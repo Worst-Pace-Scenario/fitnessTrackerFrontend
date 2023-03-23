@@ -3,7 +3,7 @@ const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api/'
 import { useState } from "react"
 // import { useNavigate } from "react-router-dom"
 
-const UserRegistration = () => {
+const UsersRegistration = () => {
     const [ username, setUsername ] = useState(" ");
     const [ password, setPassword ] = useState(" ");
 
@@ -72,4 +72,4 @@ const UserRegistration = () => {
     )
 }
 
-export default UserRegistration 
+export default UsersRegistration 
