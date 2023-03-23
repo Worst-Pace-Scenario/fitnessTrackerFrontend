@@ -5,6 +5,7 @@ import "./myroutines.css"
 const MyRoutines = (props) => {
     const [newPostForm, setNewPostForm] = useState(false);
     const [updateForm, setUpdateForm] = useState(false)
+    const [activityForm, setActivityForm] = useState(false);
     const [Name, setName] = useState("");
     const [Goal, setGoal] = useState("");
     const [isPublic, setIsPublic] = useState(false)
@@ -12,6 +13,10 @@ const MyRoutines = (props) => {
     const [newGoal, setNewGoal] = useState("")
 
     const { id } = useParams()
+
+    // let filteredRoutine = props.routine.filter((SingleRoutine) => {
+    //     return SingleRoutine.id == id
+    // })
 
     const navigate = useNavigate()
 
@@ -24,22 +29,13 @@ const MyRoutines = (props) => {
     function toggleNewFormUpdate() {
         setUpdateForm(!updateForm)
     }
-
-    //This function is fetching all the routines
-    async function fetchRoutines() {
-        try {
-            const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/routines`, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            });
-            const result = await response.json()
-
-
-        } catch (error) {
-            console.log(error)
-        }
+    function toggleActivityForm() {
+        setActivityForm(!activityForm)
     }
+
+    
+
+    
 
 
     //This function is creating a post request via the api that was given to us...
@@ -78,7 +74,13 @@ const MyRoutines = (props) => {
                 },
             });
             const result = await response.json()
-            // Need to filter through the array to find the id of goal deleted
+            
+            // let filteredRoutineArrayDelete = props.posts.filter((singleRoutine) => {
+            //     if(singlePost.id != id) {
+            //         return singleRoutine
+            //     }
+            // })
+            // setRoutines(filteredRoutineArrayDelete)
 
             navigate("/routines")
 
@@ -109,9 +111,17 @@ const MyRoutines = (props) => {
     }
 
 
-
+//Here I need to say in ternary terms 
+//if(filteredRoutine[0].creatorName == username){
+    //filteredRoutine[0].name
+    //filteredRoutine[0].goal
+//} else {
+    //<h2> No Routines Created Yet </h2>
+// }
     return (
         <div>
+
+            
 
             <div>
                 <button id="button" onClick={toggleNewForm}>Create Routine</button>
@@ -147,7 +157,7 @@ const MyRoutines = (props) => {
                 > Make Routine Public? 
                 </label>
             </form>
-            <button onClick={newPostRequest}>Submit</button>
+            <button type="submit">Submit</button>
             </div>
                 ) : ""
             }
@@ -179,18 +189,21 @@ const MyRoutines = (props) => {
                     onChange={(event) => setNewGoal(event.target.value)}
                     />
                 </form>
-                <button onClick={updateSpecificPost}>Update Post</button>
+                <button type="submit">Update Post</button>
                 </div>
                 ) : ""
             }
 
-            {/* <button>Add Activity To Routine</button>
-            <form>
+            {/* <button onClick={toggleActivityForm}>Add Activity To Routine</button>
+            <form onSubmit={}>
                 <option value={props.activity.name}>{props.activity.name}</option>
                 <option value={props.activity.name}>{props.activity.name}</option>
                 <option value={props.activity.name}>{props.activity.name}</option>
                 <option value={props.activity.name}>{props.activity.name}</option>
-            </form> */}
+                <input type="text" placeholder="Count">
+                <input type="text" placeholder="Duration">
+            </form> 
+            <button type="submit"></button> */}
             
                 
 
