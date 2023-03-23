@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {createRoot} from "react-dom/client";
 import { BrowserRouter,Route, Routes, Link } from "react-router-dom";
-import { Nav,Home, Activities, UserLogin, UserRegistration, Routines, MySingleRoutine, UserRoutines } from "./components";
+import { Nav,Home, Activities, UserLogin, UsersRegistration, Routines, MySingleRoutine, UserRoutines } from "./components";
 
 
 const App = () => {
@@ -74,9 +74,9 @@ const App = () => {
                 <Route path="/routines" element={<Routines routines={routines} activities={activities}/>} />
                 <Route path="/userroutines" element={<UserRoutines routines={routines}/>}/>
                 {/* <Route path="/myroutines" element={<MyRoutines routines={routines} currentUser={currentUser}/>}/> */}
-                <Router path="/mysingleroutine" element={<MySingleRoutine routines={routines} activities={activites} currentUser={currentUser}/>}/>
+                <Route path="/mysingleroutine" element={<MySingleRoutine routines={routines} activities={activities} currentUser={currentUser}/>}/>
                 <Route path="/login" element={<UserLogin />}/>
-                <Route path="/register" element={<UserRegistration />}/>
+                <Route path="/register" element={<UsersRegistration />}/>
             </Routes>
         </BrowserRouter>
     )
