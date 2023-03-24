@@ -31,6 +31,7 @@ const UserRoutines = (props) => {
 
     return (
         <section> 
+            <h1> {currentUser} Routines </h1>
             {
                 myRoutines.map(routines => (
                     <div key={routines._id}> 

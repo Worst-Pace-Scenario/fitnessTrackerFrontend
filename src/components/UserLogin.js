@@ -39,23 +39,23 @@ const UserLogin = () => {
     }
 
     return (
-        <section>
-            <h3> Login to your account</h3>
+        <section id="loginSection">
+            <h3 id="loginHeader"> Login to your account</h3>
 
             <form onSubmit={loginFunction}>
-                <input
+                <input className="loginBox"
                     type="text"
                     placeholder="Username"
                     value={myUsername}
                     onChange={(event) => setMyUsername(event.target.value)}
                 />
-                <input
+                <input className="loginBox"
                     type="text"
                     placeholder="Password"
                     value={myPassword}
                     onChange={(event) => setMyPassword(event.target.value)}
                 />
-                <button type="submit"> Login </button>
+                <button className="loginButton" type="submit"> Login </button>
             </form>
         </section>
     )
