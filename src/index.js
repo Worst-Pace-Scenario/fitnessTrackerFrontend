@@ -62,7 +62,7 @@ const App = () => {
         
     },[])
 
-    // console.log(activities, routines, currentUser)
+    console.log(activities, routines, currentUser)
 
     return ( 
         <BrowserRouter>
