@@ -19,9 +19,9 @@ const UsersRegistration = () => {
               return;
             }
 
-            const response = await fetch(`${BASE_URL}/users/register`, {
+            const response = await fetch(`${BASE_URL}users/register`, {
                 method: "POST", 
-                header: {
+                headers: {
                     'Content-Type': "application/json",
                 },
 
@@ -51,7 +51,9 @@ const UsersRegistration = () => {
         <section className="registerSection"> 
             <h3 id="registerHeader"> Create New Account </h3>
             
-            <form className="registrationForm" onSubmit={accountRegistration}> 
+            <form className="registrationForm" onSubmit={(event) => {
+                event.preventDefault()
+                accountRegistration()}}> 
                 <input className ="usernameBox"
                     type="text"
                     placeholder="Username"
