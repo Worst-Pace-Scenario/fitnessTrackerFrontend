@@ -64,6 +64,7 @@ const MySingleRoutine = (props) => {
                 })
             });
             const result = await response.json()
+            setRoutines(result)
         } catch (error) {
             console.log(error)
         }
@@ -71,6 +72,9 @@ const MySingleRoutine = (props) => {
 
   return(
     <div>
+        {/* {
+        singleRoutine ? ( */}
+            <div>
         <button 
             id="button"
             onClick={deleteSpecificPost}
@@ -103,17 +107,27 @@ const MySingleRoutine = (props) => {
                 </div>
                 ) : ""
             }
+            <button onClick={toggleActivityForm}>Add Activity To Routine</button>
+                {
+                    toggleActivityForm ? (
+                        <div>
+                            <form>
+                            <option value={props.activity.name}>{props.activity.name}</option>
+                            <option value={props.activity.name}>{props.activity.name}</option>
+                            <option value={props.activity.name}>{props.activity.name}</option>
+                            <option value={props.activity.name}>{props.activity.name}</option>
+                            <input type="text" placeholder="Count"/>
+                            <input type="text" placeholder="Duration"></input>
+                            <button type="submit"></button>
 
-            {/* <button onClick={toggleActivityForm}>Add Activity To Routine</button>
-            <form onSubmit={}>
-                <option value={props.activity.name}>{props.activity.name}</option>
-                <option value={props.activity.name}>{props.activity.name}</option>
-                <option value={props.activity.name}>{props.activity.name}</option>
-                <option value={props.activity.name}>{props.activity.name}</option>
-                <input type="text" placeholder="Count">
-                <input type="text" placeholder="Duration">
-            </form> 
-            <button type="submit"></button> */}
+                            </form>
+                            
+                        </div>
+                    ): ""
+                }
+            </div>
+        {/* ) : ""
+        } */}
 
 
         </div>
