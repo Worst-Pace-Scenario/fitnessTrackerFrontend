@@ -112,14 +112,13 @@ const MySingleRoutine = (props) => {
                     toggleActivityForm ? (
                         <div>
                             <form>
-                            <option value={props.activity.name}>{props.activity.name}</option>
-                            <option value={props.activity.name}>{props.activity.name}</option>
-                            <option value={props.activity.name}>{props.activity.name}</option>
-                            <option value={props.activity.name}>{props.activity.name}</option>
+                            <option value={props.activities.name}>{props.activities.name}</option>
+                            <option value={props.activities.name}>{props.activities.name}</option>
+                            <option value={props.activities.name}>{props.activities.name}</option>
+                            <option value={props.activities.name}>{props.activities.name}</option>
                             <input type="text" placeholder="Count"/>
-                            <input type="text" placeholder="Duration"></input>
+                            <input type="text" placeholder="Duration"/>
                             <button type="submit"></button>
-
                             </form>
                             
                         </div>
