@@ -33,10 +33,29 @@ const UserRoutines = (props) => {
     useEffect(() => {
         // if cuurentUser is true 
         myData();
-    }, [])
+    }, [currentUser])
+
     console.log(myRoutines)
     // filter through data here 
     // filteredRoutines 
+
+    if (myRoutines.success) {
+        let filteredMyRoutinesArray = myRoutines.filter((myRoutinesElement) => {
+            if (myRoutinesElement.id != event.target.value) {
+                return myRoutinesElement
+            }
+        })
+        setMyRoutines(filteredMyRoutinesArray)
+    }
+    if (myRoutines.success) {
+        let myRoutinesData = myRoutines.data.filter((myRoutinesElement) => {
+          if (myRoutinesElement.id != event.target.value) {
+            return false;
+          }
+          return true;
+        });
+        setMyRoutines(myRoutinesData);
+      }
     return (
         // render data 
         <p> Placeholder</p>
