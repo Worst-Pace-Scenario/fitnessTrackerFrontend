@@ -36,7 +36,7 @@ const App = () => {
     async function fetchCurrentUser(){
         if (localStorage.token){
             try {
-                const response = await fetch(`$http://fitnesstrac-kr.herokuapp.com/api/users/me`, {
+                const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/users/me`, {
                     headers: {
                       'Content-Type': 'application/json',
                       'Authorization': `Bearer ${localStorage.token}`
@@ -62,7 +62,7 @@ const App = () => {
         
     },[])
 
-    console.log(activities, routines, currentUser)
+    // console.log(activities, routines, currentUser)
 
     return ( 
         <BrowserRouter>
@@ -72,7 +72,7 @@ const App = () => {
                 <Route path="/" element={<Home />}/>
                 <Route path="/activites" element={<Activities currentUser={currentUser}/>}/>
                 <Route path="/routines" element={<Routines routines={routines} activities={activities}/>} />
-                <Route path="/userroutines" element={<UserRoutines routines={routines}/>}/>
+                <Route path="/userroutines" element={<UserRoutines currentUser={currentUser} routines={routines}/>}/>
                 {/* <Route path="/myroutines" element={<MyRoutines routines={routines} currentUser={currentUser}/>}/> */}
                 <Route path="/mysingleroutine" element={<MySingleRoutine routines={routines} activities={activities} currentUser={currentUser}/>}/>
                 <Route path="/login" element={<UserLogin />}/>

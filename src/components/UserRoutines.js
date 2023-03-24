@@ -1,53 +1,47 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api/'
+const BASE_URL = 'http://fitnesstrac-kr.herokuapp.com/api/' 
 
 const UserRoutines = (props) => {
+    const { currentUser, routines } = props 
+    const [ myRoutines, setMyRoutines ] = useState ([])
 
-    const { currentUser } = props 
+    const fetchMyData = async () => {
 
-    const [ myId, setMyId ] = useState('')
-    const [ myUsername, setMyUsername ] = useState ('')
-    const [ myActivities, setMyActivities ] = useState('')
-
+        try {
+            const response = await fetch(`${BASE_URL}/users/${currentUser}/routines`,{
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                }
+            })
+            const result = await response.json()
+            console.log(result)
+            setMyRoutines(result) // result or myRoutinesData
+        } catch (e) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
+        fetchMyData();
+    }, [currentUser])
 
-        console.log(localStorage.getItem("token"))
-        if (localStorage.getItem("token")) {
-            props.setIsLoggedIn(true)
-            console.log("this is working")
-        } else {
-            props.setIsLoggedIn(false);
-            console.log("no token exists")
-        }
-    }, []);
+    console.log(myRoutines)
 
-    const myData = async () => {
-
-    try {  
-        const response = await fetch(`${BASE_URL}/users/${currentUser}/routines`, {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify({
-                currentUser: {
-
-                }
-
-            })
-        })
-        const result = await response.json()
-        console.log(result);
-        return result
-    } catch (error) {
-        console.log(error)
-    }
-    }
-    
     return (
-        <p> Placeholder</p>
+        <section> 
+            <h1> {currentUser} Routines </h1>
+            {
+                myRoutines.map(routines => (
+                    <div key={routines._id}> 
+                        <p> Placeholder </p>
+                        <p> Placeholder </p>
+
+                    </div>
+                ))
+            }
+        </section>
     )
 }
 

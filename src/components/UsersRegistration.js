@@ -26,10 +26,8 @@ const UsersRegistration = () => {
                 },
 
                 body: JSON.stringify ({
-                    user: {
-                        username: username,
-                        password: password,
-                    }
+                    username: username,
+                    password: password,
                 })
             })
 
@@ -50,23 +48,23 @@ const UsersRegistration = () => {
     }
 
     return (
-        <section> 
-            <h3> Create New Account </h3>
+        <section className="registerSection"> 
+            <h3 id="registerHeader"> Create New Account </h3>
             
-            <form onSubmit={accountRegistration}> 
-                <input 
+            <form className="registrationForm" onSubmit={accountRegistration}> 
+                <input className ="usernameBox"
                     type="text"
                     placeholder="Username"
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
                 />
-                <input
+                <input className = "passwordBox"
                     type="text"
                     placeholder="Password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                 />
-                <button type="submit"> Create Account </button>
+                <button id="submitButtong" type="submit"> Create Account </button>
             </form>
         </section>
     )
