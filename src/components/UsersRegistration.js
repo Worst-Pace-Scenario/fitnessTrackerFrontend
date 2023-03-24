@@ -1,14 +1,17 @@
-const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api/'
+const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api'
 
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 // import { useNavigate } from "react-router-dom"
 
 const UsersRegistration = () => {
     const [ username, setUsername ] = useState(" ");
     const [ password, setPassword ] = useState(" ");
 
-    async function accountRegistration() {
+    const navigate = useNavigate();
 
+    async function accountRegistration(e) {
+        e.preventDefault();
         try { 
 
             if ( username.length < 9 ) {
@@ -30,17 +33,19 @@ const UsersRegistration = () => {
                     password: password,
                 })
             })
+            console.log("registration is working")
 
             const resultData = await response.json();
 
             console.log(resultData)
 
-            if (!resultData.success) {
+            if (!resultData.token) {
                 alert("Unable to create account, please try again")
             } else {
-                const myJWT = resultData.data.token;
+                const myJWT = resultData.token;
                 localStorage.setItem("token", myJWT) 
-
+                
+                navigate("/routines")
             }
         } catch (error) {
             console.log(error)

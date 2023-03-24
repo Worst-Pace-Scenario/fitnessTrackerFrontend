@@ -1,15 +1,26 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import "./UserRoutines.css"
 
 const BASE_URL = 'http://fitnesstrac-kr.herokuapp.com/api/' 
 
 const UserRoutines = (props) => {
     const { currentUser, routines } = props 
     const [ myRoutines, setMyRoutines ] = useState ([])
+    const [ newPostForm, setNewPostForm ] =useState(false)
+    const [ Name, setName ] = useState("")
+    const [ Goal, setGoal ] = useState("")
+    const [ isPublic, setIsPublic ] =useState(false)
 
-    const fetchMyData = async () => {
+    //This function is toggling the newPostRequest form...
+    function toggleNewForm() {
+        setNewPostForm(!newPostForm)
+    }
+
+    const fetchMyData = async (event) => {
 
         try {
-            const response = await fetch(`${BASE_URL}/users/${currentUser}/routines`,{
+            const response = await fetch(`${BASE_URL}/users/${currentUser.username}/routines`,{
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -17,8 +28,32 @@ const UserRoutines = (props) => {
             })
             const result = await response.json()
             console.log(result)
+
+          
             setMyRoutines(result) // result or myRoutinesData
-        } catch (e) {
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function newPostRequest (event) {
+        event.preventDefault();
+        try {
+            const response = await fetch(`${BASE_URL}/routines`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({
+                    name: Name,
+                    goal: Goal,
+                    isPublic: isPublic
+                })
+            });
+            const result = await response.json()
+            console.log(result)
+        } catch(error) {
             console.log(error)
         }
     }
@@ -29,20 +64,68 @@ const UserRoutines = (props) => {
 
     console.log(myRoutines)
 
+    
     return (
         <section> 
-            <h1> {currentUser} Routines </h1>
-            {
-                myRoutines.map(routines => (
-                    <div key={routines._id}> 
-                        <p> Placeholder </p>
-                        <p> Placeholder </p>
 
-                    </div>
-                ))
+            <div>
+                <button id="button" onClick={toggleNewForm}>Create Routine</button>
+            </div>
+            {
+            newPostForm ? (
+                <div>
+            <form onSubmit={newPostRequest}>
+                <input
+                type="text"
+                placeholder="Name of Goal"
+                value={Name}
+                onChange={(event) => setName(event.target.value)}
+                />
+                <textarea
+                type="text"
+                rows="3"
+                cols="100"
+                placeholder="Goal Description"
+                value={Goal}
+                onChange={(event) => setGoal(event.target.value)}
+                />
+                <input
+                id="checkbox"
+                type="checkbox"
+                placeholder="Make Goal Public"
+                value={isPublic}
+                onChange={(event) => setIsPublic(!isPublic)}
+                />
+                <label
+                htmlFor="checkbox"
+                > Make Routine Public?
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+            
+            </div>
+                ) : ""
             }
+            <h1> {currentUser.username} Routines </h1>
+            
+            { 
+                // if (myRoutines.creatorName == {currentUser.username} )
+                myRoutines.length > 0 ? (myRoutines.map((singleRoutinesElement) => {
+                   return (
+                        <div key={singleRoutinesElement.id}> 
+                            
+                            <Link to={`/mysingleroutine/${singleRoutinesElement.id}`}>{singleRoutinesElement.name}</Link>
+        
+                            <p>{singleRoutinesElement.goal}</p>
+                        </div>
+                   )
+                })
+                ) : ( <div> No data available </div> 
+                )}
         </section>
     )
 }
 
+
 export default UserRoutines
+

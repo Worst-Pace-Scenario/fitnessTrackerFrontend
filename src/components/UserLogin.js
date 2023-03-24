@@ -1,13 +1,16 @@
-const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api/'
+const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api'
 
 import { useState } from "react"
-
+import { useNavigate } from "react-router-dom";
 const UserLogin = () => {
     
     const [ myUsername, setMyUsername ] = useState("");
     const [ myPassword, setMyPassword ] = useState("")
 
-    async function loginFunction() {
+    const navigate = useNavigate(); 
+
+    async function loginFunction(e) {
+        e.preventDefault();
 
         try {
             const response = await fetch (`${BASE_URL}/users/login`, {
@@ -20,18 +23,21 @@ const UserLogin = () => {
                     password: myPassword 
                 })
             })
+            console.log("login is working")
 
             const result = await response.json();
             console.log(result)
 
-            if (!result.success) {
+            if (!result.token) {
                 alert("Username or password is incorrect, please try again")
             } else {
-                const myJWT = result.data.token;
+                const myJWT = result.token;
 
                 localStorage.setItem("token", myJWT)
+
+                navigate("/routines")
             }
-        } catch {
+        } catch (error) {
             console.log(error)
         }
     }
