@@ -4,10 +4,15 @@ import { useParams, useNavigate } from "react-router-dom"
 const MySingleRoutine = (props) => {
     const [updateForm, setUpdateForm] = useState(false)
     const [activityForm, setActivityForm] = useState(false);
+    const [Name, setName] = useState("");
+    const [Goal, setGoal] = useState("");
+    const [activityId, setactivityId] = useState("");
+    const [count, setCount] = useState("");
+    const [duration, setDuration] = useState("");
 
     const { id } = useParams()
 
-    const nvaigate = useNavigate()
+    const navigate = useNavigate()
 
     let filteredRoutine = props.routines.filter((SingleRoutine) => {
         return SingleRoutine.id == id
@@ -16,7 +21,7 @@ const MySingleRoutine = (props) => {
     function toggleNewFormUpdate() {
         setUpdateForm(!updateForm)
     }
-    function toggleActivityForm() {
+    function toggleNewActivityForm() {
         setActivityForm(!activityForm)
     }
 
@@ -50,7 +55,8 @@ const MySingleRoutine = (props) => {
     }
 
     //This function is updating the post via the api that was given to  us...
-    async function updateSpecificPost() {
+    async function updateSpecificPost(event) {
+        event.preventDefault()
         try {
             const response = await fetch (`https://fitnesstrac-kr.herokuapp.com/routines/${id}`, {
                 method: "PATCH",
@@ -69,6 +75,28 @@ const MySingleRoutine = (props) => {
             console.log(error)
         }
     }
+    //This function is adding an activity to the routine
+    async function addActivity(event) {
+        event.preventDefault()
+    try {
+      const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/routines/${id}/activities`, {
+        method: "POST",
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          activityId: activityId,
+          count: count ,
+          duration: duration
+        })
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return(
     <div>
@@ -78,7 +106,7 @@ const MySingleRoutine = (props) => {
         <button 
             id="button"
             onClick={deleteSpecificPost}
-            >Delete Post</button>
+            >Delete Routine</button>
 
             <button onClick={toggleNewFormUpdate}>Update Routine</button>
 
@@ -91,34 +119,39 @@ const MySingleRoutine = (props) => {
                     <input
                     type="text"
                     placeholder="Name of Goal"
-                    value={newName}
-                    onChange={(event) => setNewName(event.target.value)}
+                    value={Name}
+                    onChange={(event) => setName(event.target.value)}
                     />
                     <textarea
                     type="text"
                     rows="3"
                     cols="100"
                     placeholder="Goal Description"
-                    value={newGoal}
-                    onChange={(event) => setNewGoal(event.target.value)}
+                    value={Goal}
+                    onChange={(event) => setGoal(event.target.value)}
                     />
                 </form>
                 <button type="submit">Update Post</button>
                 </div>
                 ) : ""
             }
-            <button onClick={toggleActivityForm}>Add Activity To Routine</button>
+            <button onClick={toggleNewActivityForm}>Add Activity To Routine</button>
                 {
-                    toggleActivityForm ? (
+                    activityForm ? (
                         <div>
-                            <form>
-                            <option value={props.activities.name}>{props.activities.name}</option>
-                            <option value={props.activities.name}>{props.activities.name}</option>
-                            <option value={props.activities.name}>{props.activities.name}</option>
-                            <option value={props.activities.name}>{props.activities.name}</option>
-                            <input type="text" placeholder="Count"/>
+                            <form onSubmit={addActivity}>
+                                <select placeholder="Select Activity">
+                            <option>{props.activities.name}</option>
+                            <option>{props.activities.name}</option>
+                            <option>{props.activities.name}</option>
+                            <option>{props.activities.name}</option>
+                            </select>
+                            <input type="text" 
+                            placeholder="Count" 
+                            value={count}
+                            on/>
                             <input type="text" placeholder="Duration"/>
-                            <button type="submit"></button>
+                            <button type="submit">Add Activity</button>
                             </form>
                             
                         </div>
