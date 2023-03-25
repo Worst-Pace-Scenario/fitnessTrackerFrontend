@@ -66,7 +66,7 @@ const App = () => {
 
     return ( 
         <BrowserRouter>
-            <Nav currentUser = {currentUser} />
+            <Nav currentUser = {currentUser} setCurrentUser= {setCurrentUser} />
 
             <Routes>
                 <Route path="/" element={<Home currentUser = {currentUser}/>}/>
