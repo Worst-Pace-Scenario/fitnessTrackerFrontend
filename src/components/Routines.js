@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate,Link } from "react-router-dom"
 
 const Routines = (props) => {
     let filteredRoutine = props.routines
@@ -8,13 +8,14 @@ const Routines = (props) => {
         <div>
             {
             filteredRoutine.length > 0 ? (filteredRoutine.map((singleRoutinesElement) => {
-                   return (
+                   return (<Link to= {`routines/${singleRoutinesElement.id}`}>
                         <div key={singleRoutinesElement.id}> 
                             
                             <h2>{singleRoutinesElement.name}</h2>
                             <h4>{singleRoutinesElement.goal}</h4>
                             
                         </div>
+                        </Link>
                    )
                 })
                 ) : ( <div> No data available </div> 
