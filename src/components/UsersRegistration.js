@@ -1,17 +1,14 @@
-const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api'
+const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api/'
 
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 // import { useNavigate } from "react-router-dom"
 
 const UsersRegistration = () => {
     const [ username, setUsername ] = useState(" ");
     const [ password, setPassword ] = useState(" ");
 
-    const navigate = useNavigate();
+    async function accountRegistration() {
 
-    async function accountRegistration(e) {
-        e.preventDefault();
         try { 
 
             if ( username.length < 9 ) {
@@ -22,30 +19,30 @@ const UsersRegistration = () => {
               return;
             }
 
-            const response = await fetch(`${BASE_URL}users/register`, {
+            const response = await fetch(`${BASE_URL}/users/register`, {
                 method: "POST", 
-                headers: {
+                header: {
                     'Content-Type': "application/json",
                 },
 
                 body: JSON.stringify ({
-                    username: username,
-                    password: password,
+                    user: {
+                        username: username,
+                        password: password,
+                    }
                 })
             })
-            console.log("registration is working")
 
             const resultData = await response.json();
 
             console.log(resultData)
 
-            if (!resultData.token) {
+            if (!resultData.success) {
                 alert("Unable to create account, please try again")
             } else {
-                const myJWT = resultData.token;
+                const myJWT = resultData.data.token;
                 localStorage.setItem("token", myJWT) 
-                
-                navigate("/routines")
+
             }
         } catch (error) {
             console.log(error)
@@ -53,25 +50,23 @@ const UsersRegistration = () => {
     }
 
     return (
-        <section className="registerSection"> 
-            <h3 id="registerHeader"> Create New Account </h3>
+        <section> 
+            <h3> Create New Account </h3>
             
-            <form className="registrationForm" onSubmit={(event) => {
-                event.preventDefault()
-                accountRegistration()}}> 
-                <input className ="usernameBox"
+            <form onSubmit={accountRegistration}> 
+                <input 
                     type="text"
                     placeholder="Username"
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
                 />
-                <input className = "passwordBox"
+                <input
                     type="text"
                     placeholder="Password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                 />
-                <button id="submitButtong" type="submit"> Create Account </button>
+                <button type="submit"> Create Account </button>
             </form>
         </section>
     )
