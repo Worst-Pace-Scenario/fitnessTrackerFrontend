@@ -2,12 +2,7 @@ import { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 
 const Routines = (props) => {
-    let filteredRoutine = props.routines.filter((singleRoutinesElement) => {
-        return (
-            singleRoutinesElement.creatorName = props.currentUser.username
-        )
-    })
-    
+    let filteredRoutine = props.routines
 
     return (
         <div>

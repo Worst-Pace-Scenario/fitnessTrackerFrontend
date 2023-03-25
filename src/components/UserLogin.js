@@ -2,10 +2,12 @@ const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api'
 
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
-const UserLogin = () => {
+const UserLogin = (props) => {
     
     const [ myUsername, setMyUsername ] = useState("");
     const [ myPassword, setMyPassword ] = useState("")
+
+    const {setCurrentUser} = props;
 
     const navigate = useNavigate(); 
 
@@ -34,6 +36,8 @@ const UserLogin = () => {
                 const myJWT = result.token;
 
                 localStorage.setItem("token", myJWT)
+
+                setCurrentUser(result.user)
 
                 navigate("/routines")
             }

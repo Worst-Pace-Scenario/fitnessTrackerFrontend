@@ -20,7 +20,7 @@ const UserRoutines = (props) => {
     const fetchMyData = async (event) => {
 
         try {
-            const response = await fetch(`${BASE_URL}/users/${currentUser.username}/routines`,{
+            const response = await fetch(`${BASE_URL}users/${currentUser.username}/routines`,{
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -52,8 +52,15 @@ const UserRoutines = (props) => {
                 })
             });
             const result = await response.json()
+
+
+            if(result.error) {
+                alert(result.error)
+            }else {
+                setMyRoutines([...myRoutines, result])
+            }
             console.log(result)
-            setMyRoutines([...myRoutines, result])
+            
         } catch(error) {
             console.log(error)
         }

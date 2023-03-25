@@ -18,7 +18,7 @@ const Nav = (props) =>{
             <div id="navButtons">
                 <Link to="/activities" >Activities</Link>
                 <Link to="/routines" >Routines</Link>
-                <Link to="/myroutines">My Routines</Link>
+                <Link to="/userroutines">My Routines</Link>
                 <Link to="/" onClick={logout}>Logout</Link>
             </div> : 
             <div id="navButtons">

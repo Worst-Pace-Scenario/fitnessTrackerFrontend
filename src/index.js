@@ -69,15 +69,15 @@ const App = () => {
             <Nav currentUser = {currentUser} />
 
             <Routes>
-                <Route path="/" element={<Home />}/>
+                <Route path="/" element={<Home currentUser = {currentUser}/>}/>
                 <Route path="/activities" element={<Activities currentUser={currentUser}/>}/>
                 <Route path="/routines" element={<Routines routines={routines} activities={activities} currentUser={currentUser}/>} />
                 <Route path="/userroutines" element={<UserRoutines currentUser={currentUser} routines={routines}/>}/>
                 <Route path="/routineactivities/:id" element={<RoutineActivities currentUser={currentUser} activities={activities} routines={routines}/>}/>
                 {/* <Route path="/myroutines" element={<MyRoutines routines={routines} currentUser={currentUser}/>}/> */}
                 <Route path="/routines/:id" element={<MySingleRoutine routines={routines} activities={activities} currentUser={currentUser}/>}/>
-                <Route path="/login" element={<UserLogin />}/>
-                <Route path="/register" element={<UsersRegistration />}/>
+                <Route path="/login" element={<UserLogin setCurrentUser = {setCurrentUser}/>}/>
+                <Route path="/register" element={<UsersRegistration setCurrentUser= {setCurrentUser} />}/>
             </Routes>
         </BrowserRouter>
     )

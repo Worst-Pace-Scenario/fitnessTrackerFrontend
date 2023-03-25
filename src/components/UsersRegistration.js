@@ -1,11 +1,17 @@
 const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api/'
 
 import { useState } from "react"
-// import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
-const UsersRegistration = () => {
+
+
+const UsersRegistration = (props) => {
     const [ username, setUsername ] = useState(" ");
     const [ password, setPassword ] = useState(" ");
+
+    const {setCurrentUser} = props;
+
+    const navigate = useNavigate();
 
     async function accountRegistration() {
 
@@ -21,15 +27,13 @@ const UsersRegistration = () => {
 
             const response = await fetch(`${BASE_URL}/users/register`, {
                 method: "POST", 
-                header: {
+                headers: {
                     'Content-Type': "application/json",
                 },
 
                 body: JSON.stringify ({
-                    user: {
                         username: username,
                         password: password,
-                    }
                 })
             })
 
@@ -37,12 +41,13 @@ const UsersRegistration = () => {
 
             console.log(resultData)
 
-            if (!resultData.success) {
+            if (!resultData.token) {
                 alert("Unable to create account, please try again")
             } else {
-                const myJWT = resultData.data.token;
+                const myJWT = resultData.token;
                 localStorage.setItem("token", myJWT) 
-
+                setCurrentUser(resultData.user)
+                navigate("/")
             }
         } catch (error) {
             console.log(error)
@@ -53,7 +58,9 @@ const UsersRegistration = () => {
         <section> 
             <h3> Create New Account </h3>
             
-            <form onSubmit={accountRegistration}> 
+            <form onSubmit={(e) => {
+                accountRegistration()
+                e.preventDefault()}}> 
                 <input 
                     type="text"
                     placeholder="Username"
