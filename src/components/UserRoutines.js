@@ -39,7 +39,7 @@ const UserRoutines = (props) => {
     async function newPostRequest (event) {
         event.preventDefault();
         try {
-            const response = await fetch(`${BASE_URL}/routines`, {
+            const response = await fetch(`${BASE_URL}routines`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -53,6 +53,7 @@ const UserRoutines = (props) => {
             });
             const result = await response.json()
             console.log(result)
+            setMyRoutines([...myRoutines, result])
         } catch(error) {
             console.log(error)
         }
@@ -114,9 +115,8 @@ const UserRoutines = (props) => {
                    return (
                         <div key={singleRoutinesElement.id}> 
                             
-                            <Link to={`/mysingleroutine/${singleRoutinesElement.id}`}>{singleRoutinesElement.name}</Link>
-        
-                            <p>{singleRoutinesElement.goal}</p>
+                            <h2><Link to={`/routines/${singleRoutinesElement.id}`}>Name of Goal:{singleRoutinesElement.name}</Link></h2>
+                            <h4>Goal Description:{singleRoutinesElement.goal}</h4>
                         </div>
                    )
                 })
