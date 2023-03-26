@@ -11,8 +11,8 @@ const Routines = (props) => {
             {
             filteredRoutine.length > 0 ? (filteredRoutine.map((singleRoutinesElement) => {
                    return (
-                   <Link to= {`/routines/${singleRoutinesElement.id}`}>
-                        <div id="routines" key={singleRoutinesElement.id}> 
+                   <Link to= {`/routines/${singleRoutinesElement.id}`} key={singleRoutinesElement.id}>
+                        <div > 
                             
                             <h2 id="link">{singleRoutinesElement.name}</h2>
                             <h4>{singleRoutinesElement.goal}</h4>
