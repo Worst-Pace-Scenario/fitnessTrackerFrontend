@@ -13,7 +13,6 @@ const UsersRegistration = (props) => {
     const navigate = useNavigate();
 
     async function accountRegistration() {
-
         try { 
 
             if ( username.length < 9 ) {
@@ -57,7 +56,9 @@ const UsersRegistration = (props) => {
         <section id="registerSection"> 
             <h3 id="registerHeader"> Create New Account </h3>
             
-            <form className="registrationForm" onSubmit={accountRegistration}> 
+            <form className="registrationForm" onSubmit={(event) => {
+                    event.preventDefault()
+                    accountRegistration()}}> 
                 <input className = "registrationBox"
                     type="text"
                     placeholder="Username"
