@@ -24,12 +24,8 @@ const Activities = (props) => {
     fetchData();
   }, []);
 
-
   const token = localStorage.getItem('token');
   const loggedIn = !!token;
-
-
-
 
   const submit = async (event) => {
     event.preventDefault();
@@ -72,37 +68,61 @@ const Activities = (props) => {
   };
 
   return (
-    <div>
-      <div id="container">
-        {
-          currentUser ? <form id="createActivityForm" onSubmit={submit}>
-          <h2>Create New Activity</h2>
-          {errorMessage && <p>{errorMessage}</p>}
-          <label>
-            Name:
-            <input type="text" value={newActivityName} onChange={(event) => setNewActivityName(event.target.value)} />
-          </label>
-          <label>
-            Description:
-            <input type="text" value={newActivityDescription} onChange={(event) => setNewActivityDescription(event.target.value)} />
-          </label>
-          <button type="submit">Create</button>
-        </form> : ""
-      }
+    // <div>
+    //   <div id="container">
+    //     {
+    //       currentUser ? <form id="createActivityForm" onSubmit={submit}>
+    //       <h2>Create New Activity</h2>
+    //       {errorMessage && <p>{errorMessage}</p>}
+    //       <label>
+    //         Name:
+    //         <input type="text" value={newActivityName} onChange={(event) => setNewActivityName(event.target.value)} />
+    //       </label>
+    //       <label>
+    //         Description:
+    //         <input type="text" value={newActivityDescription} onChange={(event) => setNewActivityDescription(event.target.value)} />
+    //       </label>
+    //       <button type="submit">Create</button>
+    //     </form> : ""
+    //   }
         
-        <h1 id="activityHeader">Activity List</h1>
-        {activities.map(activity => (
-          <div>
-          <div id="activityDescription" key={activity.id}>
-            <h2>Activity: {activity.name}</h2>
-            <p>Description: {activity.description}</p>
-          </div>
-          </div>
+    //     <h1 id="activityHeader">Activity List</h1>
+    //     {activities.map(activity => (
+    //       <div id="activityDescription" key={activity.id}>
+    //         <h2>Activity: {activity.name}</h2>
+    //         <p>Description: {activity.description}</p>
+    //       </div>
           
-        ))}
-    </div>
-    </div>
-    
+    //     ))}
+    // </div>
+    // </div>
+    <div>
+    {loggedIn && (
+    <form id="createActivityForm" onSubmit={submit}>
+      <h2>Create New Activity</h2>
+      {errorMessage && <p>{errorMessage}</p>}
+      <label>
+        Name:
+        <input type="text" value={newActivityName} onChange={(event) => setNewActivityName(event.target.value)} />
+      </label>
+      <label>
+        Description:
+        <input type="text" value={newActivityDescription} onChange={(event) => setNewActivityDescription(event.target.value)} />
+      </label>
+      <button type="submit">Create</button>
+    </form>
+    )}
+    <h1 id="activityHeader">Activity List</h1>
+    {activities.map(activity => (
+      <div>
+      <div id="activityDescription" key={activity.id}>
+        <h2>Activity: {activity.name}</h2>
+        <p>Description: {activity.description}</p>
+      </div>
+      </div>
+      
+    ))}
+</div>
   );
 };
 
