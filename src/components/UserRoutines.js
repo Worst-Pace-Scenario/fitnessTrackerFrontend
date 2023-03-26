@@ -10,7 +10,7 @@ const UserRoutines = (props) => {
     const [ newPostForm, setNewPostForm ] =useState(false)
     const [ Name, setName ] = useState("")
     const [ Goal, setGoal ] = useState("")
-    const [ isPublic, setIsPublic ] =useState(false)
+    const [ isPublic, setIsPublic ] = useState(false)
 
     //This function is toggling the newPostRequest form...
     function toggleNewForm() {
