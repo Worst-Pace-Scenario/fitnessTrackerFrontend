@@ -30,7 +30,7 @@ const UserLogin = (props) => {
             } else {
                 const myJWT = result.token;
                 localStorage.setItem("token", myJWT)
-                setCurrentUser({myUsername, myPassword})
+                setCurrentUser({username: myUsername, password: myPassword})
                 navigate("/routines")
             }
         } catch (error) {
