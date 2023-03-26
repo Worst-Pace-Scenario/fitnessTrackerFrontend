@@ -1,5 +1,36 @@
-#button {
+#createroutinebutton {
     display: flex;
-    font-size: 50px;
-    margin-top: 50px;
+    font-size: 20px;
+    margin-top: 45px;
 }
+#createroutineform {
+    display: flex;
+    flex-direction: column;
+}
+#submit:hover {
+    transform: scale(1.3);
+}
+#userroutineheader {
+    text-align: center;
+    text-decoration: underline;
+}
+#link:hover {
+    transform: scale(1.3);
+}
+#myroutines {
+    text-align: center;
+    border: 2px dashed black;
+    margin: 5px;
+    background: #E03C31;
+}
+
+
+
+
+
+
+
+
+
+
+
