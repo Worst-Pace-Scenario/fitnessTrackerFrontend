@@ -44,7 +44,7 @@ const UsersRegistration = (props) => {
             } else {
                 const myJWT = resultData.token;
                 localStorage.setItem("token", myJWT) 
-                setCurrentUser(resultData.user)
+                setCurrentUser({username, password})
                 navigate("/")
             }
         } catch (error) {
