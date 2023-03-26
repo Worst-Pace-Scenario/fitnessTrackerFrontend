@@ -70,7 +70,7 @@ const App = () => {
 
             <Routes>
                 <Route path="/" element={<Home />}/>
-                <Route path="/activites" element={<Activities currentUser={currentUser}/>}/>
+                <Route path="/activities" element={<Activities currentUser={currentUser}/>}/>
                 <Route path="/routines" element={<Routines routines={routines} activities={activities}/>} />
                 <Route path="/userroutines" element={<UserRoutines currentUser={currentUser} routines={routines}/>}/>
                 {/* <Route path="/myroutines" element={<MyRoutines routines={routines} currentUser={currentUser}/>}/> */}

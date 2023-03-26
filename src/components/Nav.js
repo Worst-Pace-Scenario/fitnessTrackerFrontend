@@ -22,7 +22,7 @@ const Nav = (props) =>{
                 <Link to="/" onClick={logout}>Logout</Link>
             </div> : 
             <div id="navButtons">
-                <Link to="/activites">Activities</Link>
+                <Link to="/activities">Activities</Link>
                 <Link to="routines">Routines</Link>
                 <Link to="/login">Login</Link>
                 <Link to="register">Register</Link>
