@@ -1,17 +1,19 @@
-const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api'
+const BASE_URL ='https://worstpacescenario.onrender.com/api'
 
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "./UsersRegistration.css"
 
-const UsersRegistration = () => {
+const UsersRegistration = (props) => {
     const [ username, setUsername ] = useState(" ");
     const [ password, setPassword ] = useState(" ");
 
+    const {setCurrentUser} = props;
+
     const navigate = useNavigate();
 
-    async function accountRegistration(e) {
-        e.preventDefault();
+    async function accountRegistration() {
+
         try { 
 
             if ( username.length < 9 ) {
@@ -29,11 +31,10 @@ const UsersRegistration = () => {
                 },
 
                 body: JSON.stringify ({
-                    username: username,
-                    password: password,
+                        username: username,
+                        password: password,
                 })
             })
-            console.log("registration is working")
 
             const resultData = await response.json();
 
@@ -44,8 +45,8 @@ const UsersRegistration = () => {
             } else {
                 const myJWT = resultData.token;
                 localStorage.setItem("token", myJWT) 
-                
-                navigate("/routines")
+                setCurrentUser(resultData.user)
+                navigate("/")
             }
         } catch (error) {
             console.log(error)

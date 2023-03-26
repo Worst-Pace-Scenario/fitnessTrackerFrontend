@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import "./UserRoutines.css"
 
-const BASE_URL = 'http://fitnesstrac-kr.herokuapp.com/api/' 
+const BASE_URL = 'https://worstpacescenario.onrender.com/api/' 
 
 const UserRoutines = (props) => {
     const { currentUser, routines } = props 
@@ -20,7 +20,7 @@ const UserRoutines = (props) => {
     const fetchMyData = async (event) => {
 
         try {
-            const response = await fetch(`${BASE_URL}/users/${currentUser.username}/routines`,{
+            const response = await fetch(`${BASE_URL}users/${currentUser.username}/routines`,{
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -39,7 +39,7 @@ const UserRoutines = (props) => {
     async function newPostRequest (event) {
         event.preventDefault();
         try {
-            const response = await fetch(`${BASE_URL}/routines`, {
+            const response = await fetch(`${BASE_URL}routines`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -52,7 +52,15 @@ const UserRoutines = (props) => {
                 })
             });
             const result = await response.json()
+
+
+            if(result.error) {
+                alert(result.error)
+            }else {
+                setMyRoutines([...myRoutines, result])
+            }
             console.log(result)
+            
         } catch(error) {
             console.log(error)
         }
@@ -114,9 +122,8 @@ const UserRoutines = (props) => {
                    return (
                         <div key={singleRoutinesElement.id}> 
                             
-                            <Link to={`/mysingleroutine/${singleRoutinesElement.id}`}>{singleRoutinesElement.name}</Link>
-        
-                            <p>{singleRoutinesElement.goal}</p>
+                            <h2><Link to={`/routines/${singleRoutinesElement.id}`}>Name of Goal:{singleRoutinesElement.name}</Link></h2>
+                            <h4>Goal Description:{singleRoutinesElement.goal}</h4>
                         </div>
                    )
                 })
