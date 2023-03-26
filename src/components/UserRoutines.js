@@ -10,7 +10,7 @@ const UserRoutines = (props) => {
     const [ newPostForm, setNewPostForm ] =useState(false)
     const [ Name, setName ] = useState("")
     const [ Goal, setGoal ] = useState("")
-    const [ isPublic, setIsPublic ] =useState(false)
+    const [ isPublic, setIsPublic ] = useState(false)
 
     //This function is toggling the newPostRequest form...
     function toggleNewForm() {
@@ -75,14 +75,15 @@ const UserRoutines = (props) => {
     
     return (
         <section> 
+            <h3 id="header"> Here are all your routines </h3> 
 
             <div>
-                <button id="button" onClick={toggleNewForm}>Create Routine</button>
+                <button id="createroutinebutton" onClick={toggleNewForm}>Create Routine</button>
             </div>
             {
             newPostForm ? (
                 <div>
-            <form onSubmit={newPostRequest}>
+            <form id="createroutineform" onSubmit={newPostRequest}>
                 <input
                 type="text"
                 placeholder="Name of Goal"
@@ -108,21 +109,21 @@ const UserRoutines = (props) => {
                 htmlFor="checkbox"
                 > Make Routine Public?
                 </label>
-                <button type="submit">Submit</button>
+                <button id="submit" type="submit">Submit</button>
             </form>
             
             </div>
                 ) : ""
             }
-            <h1> {currentUser.username} Routines </h1>
+            <h1 id="userroutineheader"> {currentUser.username} Routines </h1>
             
             { 
                 // if (myRoutines.creatorName == {currentUser.username} )
                 myRoutines.length > 0 ? (myRoutines.map((singleRoutinesElement) => {
                    return (
-                        <div key={singleRoutinesElement.id}> 
+                        <div id="myroutines" key={singleRoutinesElement.id}> 
                             
-                            <h2><Link to={`/routines/${singleRoutinesElement.id}`}>Name of Goal:{singleRoutinesElement.name}</Link></h2>
+                            <h2 id="link"> <Link to={`/routines/${singleRoutinesElement.id}`}>Name of Goal:{singleRoutinesElement.name}</Link></h2>
                             <h4>Goal Description:{singleRoutinesElement.goal}</h4>
                         </div>
                    )

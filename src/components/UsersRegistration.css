@@ -1,0 +1,34 @@
+#registerSection {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#registerHeader {
+    font-size: 25px;
+}
+
+.registrationForm{
+    font-size: 25px;
+}
+
+.registrationBox {
+    padding: .5rem;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    box-shadow: 3px 2px 3px 3px red ;
+    width: 100%;
+}
+
+#submitButton{
+    display: flex;
+    justify-content: center;
+    background-color: red;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+} 
+
