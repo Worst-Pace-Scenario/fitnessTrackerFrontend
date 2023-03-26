@@ -2,8 +2,7 @@ const BASE_URL ='https://worstpacescenario.onrender.com/api'
 
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
-
+import "./UsersRegistration.css"
 
 const UsersRegistration = (props) => {
     const [ username, setUsername ] = useState(" ");
@@ -55,25 +54,23 @@ const UsersRegistration = (props) => {
     }
 
     return (
-        <section> 
-            <h3> Create New Account </h3>
+        <section id="registerSection"> 
+            <h3 id="registerHeader"> Create New Account </h3>
             
-            <form onSubmit={(e) => {
-                accountRegistration()
-                e.preventDefault()}}> 
-                <input 
+            <form className="registrationForm" onSubmit={accountRegistration}> 
+                <input className = "registrationBox"
                     type="text"
                     placeholder="Username"
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
                 />
-                <input
+                <input className = "registrationBox"
                     type="text"
                     placeholder="Password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                 />
-                <button type="submit"> Create Account </button>
+                <button id="submitButton" type="submit"> Create Account </button>
             </form>
         </section>
     )
