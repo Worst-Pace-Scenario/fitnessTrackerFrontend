@@ -1,4 +1,4 @@
-const BASE_URL ='http://worstpacescenario.onrender.com/api'
+const BASE_URL ='https://worstpacescenario.onrender.com/api'
 
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
