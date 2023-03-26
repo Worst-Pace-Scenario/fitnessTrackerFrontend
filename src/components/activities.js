@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./activities.css"
-const BASE_URL = `https://fitnesstrac-kr.herokuapp.com/api`;
+const BASE_URL = `https://worstpacescenario.onrender.com/api`;
 
 
 const Activities = (props) => {
