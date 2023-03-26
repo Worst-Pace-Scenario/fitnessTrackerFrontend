@@ -3,8 +3,8 @@ import "./home.css"
 const Home = (props) => {
     const {currentUser} = props
 
-  
 
+    console.log(currentUser)
     return(
     <div id="homeContainer">
         <div id="textContainer">

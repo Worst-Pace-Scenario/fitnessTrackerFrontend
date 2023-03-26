@@ -11,7 +11,7 @@ const App = () => {
 
     async function fetchActivities(){
         try {
-            const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/activities`)
+            const response = await fetch(`worstpacescenario.onrender.com/api/activities`)
 
             const data = await response.json();
 
@@ -23,7 +23,7 @@ const App = () => {
 
     async function fetchRoutines(){
         try {
-            const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines`);
+            const response = await fetch(`worstpacescenario.onrender.com/api/routines`);
 
             const data = await response.json();
 
@@ -36,7 +36,7 @@ const App = () => {
     async function fetchCurrentUser(){
         if (localStorage.token){
             try {
-                const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/users/me`, {
+                const response = await fetch(`worstpacescenario.onrender.com/api/users/me`, {
                     headers: {
                       'Content-Type': 'application/json',
                       'Authorization': `Bearer ${localStorage.token}`
@@ -66,18 +66,18 @@ const App = () => {
 
     return ( 
         <BrowserRouter>
-            <Nav currentUser = {currentUser} />
+            <Nav currentUser = {currentUser} setCurrentUser= {setCurrentUser} />
 
             <Routes>
-                <Route path="/" element={<Home />}/>
+                <Route path="/" element={<Home currentUser = {currentUser}/>}/>
                 <Route path="/activities" element={<Activities currentUser={currentUser}/>}/>
                 <Route path="/routines" element={<Routines routines={routines} activities={activities} currentUser={currentUser}/>} />
                 <Route path="/userroutines" element={<UserRoutines currentUser={currentUser} routines={routines}/>}/>
                 <Route path="/routineactivities/:id" element={<RoutineActivities currentUser={currentUser} activities={activities} routines={routines}/>}/>
                 {/* <Route path="/myroutines" element={<MyRoutines routines={routines} currentUser={currentUser}/>}/> */}
                 <Route path="/routines/:id" element={<MySingleRoutine routines={routines} activities={activities} currentUser={currentUser}/>}/>
-                <Route path="/login" element={<UserLogin />}/>
-                <Route path="/register" element={<UsersRegistration />}/>
+                <Route path="/login" element={<UserLogin setCurrentUser = {setCurrentUser}/>}/>
+                <Route path="/register" element={<UsersRegistration setCurrentUser= {setCurrentUser} />}/>
             </Routes>
         </BrowserRouter>
     )

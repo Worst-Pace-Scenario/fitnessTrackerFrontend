@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import "./UserRoutines.css"
 
-const BASE_URL = 'http://fitnesstrac-kr.herokuapp.com/api/' 
+const BASE_URL = 'https://worstpacescenario.onrender.com/api/' 
 
 const UserRoutines = (props) => {
     const { currentUser, routines } = props 
@@ -20,7 +20,7 @@ const UserRoutines = (props) => {
     const fetchMyData = async (event) => {
 
         try {
-            const response = await fetch(`${BASE_URL}/users/${currentUser.username}/routines`,{
+            const response = await fetch(`${BASE_URL}users/${currentUser.username}/routines`,{
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -52,8 +52,15 @@ const UserRoutines = (props) => {
                 })
             });
             const result = await response.json()
+
+
+            if(result.error) {
+                alert(result.error)
+            }else {
+                setMyRoutines([...myRoutines, result])
+            }
             console.log(result)
-            setMyRoutines([...myRoutines, result])
+            
         } catch(error) {
             console.log(error)
         }
