@@ -11,7 +11,7 @@ const App = () => {
 
     async function fetchActivities(){
         try {
-            const response = await fetch(`worstpacescenario.onrender.com/api/activities`)
+            const response = await fetch(`https://worstpacescenario.onrender.com/api/activities`)
 
             const data = await response.json();
 
@@ -23,7 +23,7 @@ const App = () => {
 
     async function fetchRoutines(){
         try {
-            const response = await fetch(`worstpacescenario.onrender.com/api/routines`);
+            const response = await fetch(`https://worstpacescenario.onrender.com/api/routines`);
 
             const data = await response.json();
 
@@ -36,7 +36,7 @@ const App = () => {
     async function fetchCurrentUser(){
         if (localStorage.token){
             try {
-                const response = await fetch(`worstpacescenario.onrender.com/api/users/me`, {
+                const response = await fetch(`https://worstpacescenario.onrender.com/api/users/me`, {
                     headers: {
                       'Content-Type': 'application/json',
                       'Authorization': `Bearer ${localStorage.token}`
