@@ -21,7 +21,7 @@ const RoutineActivities = (props) => {
   async function updateActivities(event) {
     event.preventDefault();
     try {
-      const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routine_activities/${routineActivityId}`, {
+      const response = await fetch(`https://worstpacescenario.onrender.com/api/routine_activities/${routineActivityId}`, {
         method: "PATCH",
         headers: {
         'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const RoutineActivities = (props) => {
   async function deleteActivity(event) {
     event.preventDefault()
     try {
-        const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routine_activities/${routineActivityId}`, {
+        const response = await fetch(`https://worstpacescenario.onrender.com/api/routine_activities/${routineActivityId}`, {
         method : `DELETE`,
         headers: {
           'Content-Type': 'application/json',

@@ -6,7 +6,7 @@ import RoutineActivities from "./RoutineActivities"
 
 
 const MySingleRoutine = (props) => {
-    const BASE_URL = 'http://fitnesstrac-kr.herokuapp.com/api/'
+    const BASE_URL = 'https://worstpacescenario.onrender.com/api/'
     const [updateForm, setUpdateForm] = useState(false)
     const [activityForm, setActivityForm] = useState(false);
     const [updateActivity, setUpdateActivity] = useState(false)
@@ -85,7 +85,7 @@ const MySingleRoutine = (props) => {
     async function updateSpecificPost(event) {
         event.preventDefault()
         try {
-            const response = await fetch (`${BASE_URL}/routines/${id}`, {
+            const response = await fetch (`${BASE_URL}routines/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
