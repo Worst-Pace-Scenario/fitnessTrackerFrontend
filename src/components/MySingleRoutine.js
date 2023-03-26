@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+import "./SingleRoutines.css"
 
 import RoutineActivities from "./RoutineActivities"
 
@@ -147,7 +148,7 @@ const MySingleRoutine = (props) => {
 //   console.log(filteredRoutine)
 
   return(
-    <div>
+    <div id="whole">
         
             <div>
 
@@ -155,17 +156,17 @@ const MySingleRoutine = (props) => {
                 {
                 currentUser.id == thisRoutine.creatorId ? <div>
                 <button 
-                    id="button"
+                    className="button"
                 onClick={deleteSpecificPost}>Delete Routine</button>
 
-                <button onClick={toggleNewFormUpdate}>Update Routine</button> </div>: ""
+                <button className="button" onClick={toggleNewFormUpdate}>Update Routine</button> </div>: ""
             }
         
                 
             {
                 updateForm ? (
                     <div>
-                    <form onSubmit={updateSpecificPost}>
+                    <form className="form" onSubmit={updateSpecificPost}>
                     <input
                     type="text"
                     placeholder="Name of Goal"
@@ -181,18 +182,18 @@ const MySingleRoutine = (props) => {
                     onChange={(event) => setGoal(event.target.value)}
                     />
                 </form>
-                <button type="submit">Update Post</button>
+                <button className="submit" type="submit">Update Post</button>
                 </div>
                 ) : ""
             } 
             {
-                 currentUser.id == thisRoutine.creatorId ?  <button onClick={toggleNewActivityForm}>Add Activity To Routine</button> : ""
+                 currentUser.id == thisRoutine.creatorId ?  <button className="button" onClick={toggleNewActivityForm}>Add Activity To Routine</button> : ""
             }
            
                 {
                     activityForm ? (
                         <div>
-                            <form onSubmit={addActivity}>
+                            <form className="form" onSubmit={addActivity}>
                                 <select placeholder="Select Activity" onChange={(event) => {
                                     setactivityId(event.target.value)}}>
                                     {
@@ -215,7 +216,7 @@ const MySingleRoutine = (props) => {
                             value={duration}
                             onChange={(event) => setDuration(event.target.value)}
                             />
-                            <button type="submit">Add Activity</button>
+                            <button className="submit" type="submit">Add Activity</button>
                             </form>
                             
                         </div>

@@ -1,0 +1,26 @@
+#whole {
+    margin-top: 70px;
+}
+.button {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px
+}
+.form {
+    display: flex;
+    flex-direction: column;
+}
+.submit:hover {
+    transform: scale(1.3);
+}
+
+
+
+
+
+
+
+
+
+
+
