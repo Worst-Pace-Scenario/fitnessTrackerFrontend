@@ -8,14 +8,15 @@ const Routines = (props) => {
         <div>
             {
             filteredRoutine.length > 0 ? (filteredRoutine.map((singleRoutinesElement) => {
-                   return (<Link to= {`routines/${singleRoutinesElement.id}`}>
+                   return (
+                   <Link to= {`/routines/${singleRoutinesElement.id}`}>
                         <div key={singleRoutinesElement.id}> 
                             
                             <h2>{singleRoutinesElement.name}</h2>
                             <h4>{singleRoutinesElement.goal}</h4>
                             
                         </div>
-                        </Link>
+                    </Link>
                    )
                 })
                 ) : ( <div> No data available </div> 

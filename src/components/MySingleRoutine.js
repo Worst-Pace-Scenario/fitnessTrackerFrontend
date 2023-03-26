@@ -22,8 +22,7 @@ const MySingleRoutine = (props) => {
     const { id } = useParams()
    
     //THIS DOESNT WORK BECAUSE ALL THE ROUTINES HAVE THE SAME ID??????????????
-    const {activities} = props;
-    const {routines} = props;
+    const {activities, routines, currentUser} = props;
 
     const selectedRoutine = routines.filter((routine) => {
         return (routine.id == id);
@@ -151,14 +150,17 @@ const MySingleRoutine = (props) => {
     <div>
         
             <div>
-        <button 
-            id="button"
-            onClick={deleteSpecificPost}
-            >Delete Routine</button>
 
-            <button onClick={toggleNewFormUpdate}>Update Routine</button>
 
-            
+                {
+                currentUser.id == thisRoutine.creatorId ? <div>
+                <button 
+                    id="button"
+                onClick={deleteSpecificPost}>Delete Routine</button>
+
+                <button onClick={toggleNewFormUpdate}>Update Routine</button> </div>: ""
+            }
+        
                 
             {
                 updateForm ? (
@@ -182,8 +184,11 @@ const MySingleRoutine = (props) => {
                 <button type="submit">Update Post</button>
                 </div>
                 ) : ""
+            } 
+            {
+                 currentUser.id == thisRoutine.creatorId ?  <button onClick={toggleNewActivityForm}>Add Activity To Routine</button> : ""
             }
-            <button onClick={toggleNewActivityForm}>Add Activity To Routine</button>
+           
                 {
                     activityForm ? (
                         <div>
@@ -241,7 +246,10 @@ const MySingleRoutine = (props) => {
                                         <p>{activity.description}</p>
                                         <p>Duration: {activity.duration}</p>
                                         <p>Count: {activity.count}</p>
-                                        <RoutineActivities setTheseActivities = {setTheseActivities} theseActivities = {theseActivities} routineActivityId = {activity.routineActivityId} thisActivity = {activity}/>
+                                        {
+                                            currentUser.id == thisRoutine.creatorId ? <RoutineActivities setTheseActivities = {setTheseActivities} theseActivities = {theseActivities} routineActivityId = {activity.routineActivityId} thisActivity = {activity}/> : ""
+                                        }
+                                        
                                     </div>
                                 ) 
                             }) : "No activties for this routine"}
