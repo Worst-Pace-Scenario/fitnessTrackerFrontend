@@ -3,13 +3,15 @@ import { useNavigate, useParams } from "react-router-dom"
 import MySingleRoutine from "./MySingleRoutine"
 
 
-const RoutineActivities = () => {
+const RoutineActivities = (props) => {
     const [count, setCount] = useState("")
     const [duration, setDuration] = useState("")
     const [updateActivity, setUpdateActivity] = useState(false)
     const [myActivities, setMyActivities] = useState("")
 
     const {id} = useParams()
+
+    const {setTheseActivities, theseActivities ,routineActivityId, thisActivity} = props;
 
     function toggleUpdateActivity() {
         setUpdateActivity(!updateActivity)
@@ -19,21 +21,33 @@ const RoutineActivities = () => {
   async function updateActivities(event) {
     event.preventDefault();
     try {
-      const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/routine_activities/${id}`, {
+      const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routine_activities/${routineActivityId}`, {
         method: "PATCH",
         headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${localStorage.getItem("token")}`
         },
         body: JSON.stringify({
-          count: count,
-          duration: duration
+          count: parseInt(count),
+          duration: parseInt(duration)
         })
       });
       const result = await response.json();
-      console.log(result);
-      setMyActivities(result)
-      return result
+
+      if(!result.error){
+        const copy = [...theseActivities]
+
+        for(let i = 0; i < copy.length; i ++) {
+          if(copy[i].routineActivityId == routineActivityId){
+            copy[i].count = count
+            copy[i].duration = duration
+          }
+        }
+        setUpdateActivity(!updateActivity)
+        setTheseActivities(copy)
+      }else{
+        alert(result.error)
+      }
     } catch (error) {
       console.error(error);
     }
@@ -42,22 +56,22 @@ const RoutineActivities = () => {
   async function deleteActivity(event) {
     event.preventDefault()
     try {
-        const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/routine_activities/${id}`, {
-          headers: {
+        const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routine_activities/${routineActivityId}`, {
+        method : `DELETE`,
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem("token")}`
           },
         });
         const result = await response.json()
 
-        let filteredActivityDelete = props.activities.filter((singleActivity) => {
-            if(singleActivity.id != id ) {
+        let filteredActivityDelete = theseActivities.filter((singleActivity) => {
+            if(singleActivity.routineActivityId != routineActivityId) {
                 return singleActivity
             }
         })
-        setMyActivities(filteredActivityDelete)
         
-        navigate("/userroutines")
+        setTheseActivities(filteredActivityDelete)
 
         console.log(result);
         return result
@@ -78,13 +92,13 @@ const RoutineActivities = () => {
 
             <form onSubmit={updateActivities}>
                 <input type="text" 
-                placeholder="count"
+                placeholder={thisActivity.count}
                 value={count}
                 onChange={(event) => setCount(event.target.value)}
                 />
                 <input
                 type="text"
-                placeholder="duration"
+                placeholder={thisActivity.duration}
                 value={duration}
                 onChange={(event) => setDuration(event.target.value)}
                 />

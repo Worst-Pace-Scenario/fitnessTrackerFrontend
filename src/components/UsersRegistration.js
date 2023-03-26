@@ -1,17 +1,20 @@
-const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api'
+const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api/'
 
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-// import { useNavigate } from "react-router-dom"
 
-const UsersRegistration = () => {
+
+
+const UsersRegistration = (props) => {
     const [ username, setUsername ] = useState(" ");
     const [ password, setPassword ] = useState(" ");
 
+    const {setCurrentUser} = props;
+
     const navigate = useNavigate();
 
-    async function accountRegistration(e) {
-        e.preventDefault();
+    async function accountRegistration() {
+
         try { 
 
             if ( username.length < 9 ) {
@@ -29,11 +32,10 @@ const UsersRegistration = () => {
                 },
 
                 body: JSON.stringify ({
-                    username: username,
-                    password: password,
+                        username: username,
+                        password: password,
                 })
             })
-            console.log("registration is working")
 
             const resultData = await response.json();
 
@@ -44,8 +46,8 @@ const UsersRegistration = () => {
             } else {
                 const myJWT = resultData.token;
                 localStorage.setItem("token", myJWT) 
-                
-                navigate("/routines")
+                setCurrentUser(resultData.user)
+                navigate("/")
             }
         } catch (error) {
             console.log(error)
@@ -53,23 +55,25 @@ const UsersRegistration = () => {
     }
 
     return (
-        <section className="registerSection"> 
-            <h3 id="registerHeader"> Create New Account </h3>
+        <section> 
+            <h3> Create New Account </h3>
             
-            <form className="registrationForm" onSubmit={accountRegistration}> 
-                <input className ="usernameBox"
+            <form onSubmit={(e) => {
+                accountRegistration()
+                e.preventDefault()}}> 
+                <input 
                     type="text"
                     placeholder="Username"
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
                 />
-                <input className = "passwordBox"
+                <input
                     type="text"
                     placeholder="Password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                 />
-                <button id="submitButtong" type="submit"> Create Account </button>
+                <button type="submit"> Create Account </button>
             </form>
         </section>
     )

@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 
+import RoutineActivities from "./RoutineActivities"
+
 
 
 const MySingleRoutine = (props) => {
@@ -18,7 +20,21 @@ const MySingleRoutine = (props) => {
 
 
     const { id } = useParams()
+   
+    //THIS DOESNT WORK BECAUSE ALL THE ROUTINES HAVE THE SAME ID??????????????
+    const {activities, routines, currentUser} = props;
 
+    const selectedRoutine = routines.filter((routine) => {
+        return (routine.id == id);
+    })[0] 
+
+   const [thisRoutine, setThisRoutine] = useState(selectedRoutine)
+   const [theseActivities, setTheseActivities] = useState(selectedRoutine.activities)
+
+   console.log(theseActivities)
+
+
+   console.log(thisRoutine)
 
     const navigate = useNavigate();
 
@@ -33,13 +49,11 @@ const MySingleRoutine = (props) => {
     }
 
     let filteredRoutine = props.routines.filter((singleRoutinesElement) => {
-        console.log(singleRoutinesElement)
         return (
             singleRoutinesElement.creatorId == props.currentUser.id
         )
     })
-    console.log(props.currentUser)
-    console.log(filteredRoutine)
+    // console.log(filteredRoutine)
     // let filteredRoutine = props.routines.filter((singleRoutinesElement) => {
     //     return singleRoutinesElement.creatorName == 
     // })
@@ -49,7 +63,7 @@ const MySingleRoutine = (props) => {
     async function deleteSpecificPost(event) {
         event.preventDefault();
         try {
-            const response = await fetch(`${BASE_URL}/routines/${id}`, {
+            const response = await fetch(`${BASE_URL}routines/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,14 +72,8 @@ const MySingleRoutine = (props) => {
             });
             const result = await response.json()
             
-            let filteredRoutineArrayDelete = props.routines.filter((singleRoutine) => {
-                if(singleRoutine.id != id) {
-                    return singleRoutine
-                }
-            })
-            setMyRoutines(filteredRoutineArrayDelete)
 
-            navigate("/routines")
+            navigate("/userroutines")
 
 
         } catch(error) {
@@ -89,7 +97,7 @@ const MySingleRoutine = (props) => {
                 })
             });
             const result = await response.json()
-            setMyRoutines(result)
+            setThisRoutine(result)
         } catch (error) {
             console.log(error)
         }
@@ -99,9 +107,9 @@ const MySingleRoutine = (props) => {
 
     async function addActivity(event) {
         event.preventDefault()
-        console.log("this is the typeof count", typeof activityId)
+        // console.log("this is the typeof count", typeof activityId)
     try {
-      const response = await fetch(`${BASE_URL}/routines/${id}/activities`, {
+      const response = await fetch(`${BASE_URL}routines/${id}/activities`, {
         method: "POST",
         headers: {
         'Content-Type': 'application/json',
@@ -114,9 +122,19 @@ const MySingleRoutine = (props) => {
       });
 
       const result = await response.json();
-      setMyActivities(result)
-
       
+      const addedActivity = activities.filter((activity) =>{
+        return activity.id == activityId
+      })[0]
+
+      addedActivity.count = parseInt(count);
+      addedActivity.duration = parseInt(duration);
+
+      if(!result.error) {
+        setTheseActivities([...theseActivities, addedActivity])
+      }
+
+      console.log(filteredRoutine[0])
 
       console.log(result);
       return result
@@ -126,20 +144,23 @@ const MySingleRoutine = (props) => {
   }
 
 
-  console.log(filteredRoutine)
+//   console.log(filteredRoutine)
 
   return(
     <div>
         
             <div>
-        <button 
-            id="button"
-            onClick={deleteSpecificPost}
-            >Delete Routine</button>
 
-            <button onClick={toggleNewFormUpdate}>Update Routine</button>
 
-            
+                {
+                currentUser.id == thisRoutine.creatorId ? <div>
+                <button 
+                    id="button"
+                onClick={deleteSpecificPost}>Delete Routine</button>
+
+                <button onClick={toggleNewFormUpdate}>Update Routine</button> </div>: ""
+            }
+        
                 
             {
                 updateForm ? (
@@ -163,17 +184,21 @@ const MySingleRoutine = (props) => {
                 <button type="submit">Update Post</button>
                 </div>
                 ) : ""
+            } 
+            {
+                 currentUser.id == thisRoutine.creatorId ?  <button onClick={toggleNewActivityForm}>Add Activity To Routine</button> : ""
             }
-            <button onClick={toggleNewActivityForm}>Add Activity To Routine</button>
+           
                 {
                     activityForm ? (
                         <div>
                             <form onSubmit={addActivity}>
-                                <select placeholder="Select Activity">
+                                <select placeholder="Select Activity" onChange={(event) => {
+                                    setactivityId(event.target.value)}}>
                                     {
                                         props.activities.length ? props.activities.map(activity => {
                                             return (
-                                                <option key={activity.name} value={activity.name}>{activity.name}</option>
+                                                <option key={activity.name} value={activity.id}>{activity.name}</option>
                                             )
                                         }): <div>Data is loading...</div>
 
@@ -208,19 +233,32 @@ const MySingleRoutine = (props) => {
 
  { 
                 // if (myRoutines.creatorName == {currentUser.username} )
-                filteredRoutine.length > 0 ? (filteredRoutine.map((singleRoutinesElement) => {
-                   return (
-                        <div key={singleRoutinesElement.id}> 
+                thisRoutine ? 
+                        <div key={thisRoutine.id}> 
                             
-                            <h2>{singleRoutinesElement.name}</h2>
-                            <h3>{singleRoutinesElement.activities}</h3>
-                            <h4>{singleRoutinesElement.goal}</h4>
-                            <h4>{singleRoutinesElement.creatorName}</h4>
+                            <h2>{thisRoutine.name}</h2>
+                            <div>
+                                <h2>Routines</h2>
+                            {theseActivities ? theseActivities.map((activity) => {
+                                return (
+                                    <div key={activity.id}>
+                                        <p>{activity.name}</p>
+                                        <p>{activity.description}</p>
+                                        <p>Duration: {activity.duration}</p>
+                                        <p>Count: {activity.count}</p>
+                                        {
+                                            currentUser.id == thisRoutine.creatorId ? <RoutineActivities setTheseActivities = {setTheseActivities} theseActivities = {theseActivities} routineActivityId = {activity.routineActivityId} thisActivity = {activity}/> : ""
+                                        }
+                                        
+                                    </div>
+                                ) 
+                            }) : "No activties for this routine"}
+                            </div>
+                            <h4>{thisRoutine.goal}</h4>
+                            <h4>{thisRoutine.creatorName}</h4>
 
                         </div>
-                   )
-                })
-                ) : ( <div> No data available </div> 
+                 : ( <div> No data available </div> 
                 )} 
             </div>
         
