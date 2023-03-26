@@ -1,7 +1,8 @@
-const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api'
-
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import "./UserLogin.css"
+const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api'
+
 const UserLogin = () => {
     
     const [ myUsername, setMyUsername ] = useState("");

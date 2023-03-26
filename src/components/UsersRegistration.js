@@ -2,7 +2,7 @@ const BASE_URL ='http://fitnesstrac-kr.herokuapp.com/api'
 
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-// import { useNavigate } from "react-router-dom"
+import "./UsersRegistration.css"
 
 const UsersRegistration = () => {
     const [ username, setUsername ] = useState(" ");
@@ -53,23 +53,23 @@ const UsersRegistration = () => {
     }
 
     return (
-        <section className="registerSection"> 
+        <section id="registerSection"> 
             <h3 id="registerHeader"> Create New Account </h3>
             
             <form className="registrationForm" onSubmit={accountRegistration}> 
-                <input className ="usernameBox"
+                <input className = "registrationBox"
                     type="text"
                     placeholder="Username"
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
                 />
-                <input className = "passwordBox"
+                <input className = "registrationBox"
                     type="text"
                     placeholder="Password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                 />
-                <button id="submitButtong" type="submit"> Create Account </button>
+                <button id="submitButton" type="submit"> Create Account </button>
             </form>
         </section>
     )
