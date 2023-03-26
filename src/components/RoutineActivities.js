@@ -85,12 +85,12 @@ const RoutineActivities = (props) => {
 
 
     return (
-        <div>
-            <button onClick={toggleUpdateActivity}>Update Activity</button>
+        <div id="mainSection">
+            <button className="button" onClick={toggleUpdateActivity}>Update Activity</button>
             {
             updateActivity ? (
 
-            <form onSubmit={updateActivities}>
+            <form id="mainForm" onSubmit={updateActivities}>
                 <input type="text" 
                 placeholder={thisActivity.count}
                 value={count}
@@ -102,11 +102,11 @@ const RoutineActivities = (props) => {
                 value={duration}
                 onChange={(event) => setDuration(event.target.value)}
                 />
-                <button type="submit">Update Activities</button>
+                <button id="submit" type="submit">Update Activities</button>
             </form>
             ) : ""
 }
-       <button onClick={deleteActivity}>Delete Activity</button>     
+       <button className="button" onClick={deleteActivity}>Delete Activity</button>     
         </div>
     )
 }
