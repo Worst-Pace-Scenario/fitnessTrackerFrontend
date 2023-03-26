@@ -23,6 +23,12 @@ const Activities = () => {
   }, []);
 
 
+  const token = localStorage.getItem('token');
+  const loggedIn = !!token;
+
+
+
+
   const submit = async (event) => {
     event.preventDefault();
   
@@ -64,8 +70,9 @@ const Activities = () => {
   };
 
   return (
-    <div>
-      <div id="container">
+    
+      <div>
+        {loggedIn && (
         <form id="createActivityForm" onSubmit={submit}>
           <h2>Create New Activity</h2>
           {errorMessage && <p>{errorMessage}</p>}
@@ -79,16 +86,19 @@ const Activities = () => {
           </label>
           <button type="submit">Create</button>
         </form>
+        )}
         <h1 id="activityHeader">Activity List</h1>
         {activities.map(activity => (
+          <div>
           <div id="activityDescription" key={activity.id}>
             <h2>Activity: {activity.name}</h2>
             <p>Description: {activity.description}</p>
           </div>
+          </div>
           
         ))}
     </div>
-    </div>
+    
   );
 };
 

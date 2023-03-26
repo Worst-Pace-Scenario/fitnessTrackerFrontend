@@ -7,13 +7,15 @@ const Home = (props) => {
 
     return(
     <div id="homeContainer">
-        <h1>Worst Pace Scenario</h1>
+        <div id="textContainer">
+        <h1>      Worst Pace Scenario</h1>
         <h2>Here you can achieve all your fitness goals</h2>
         {
         currentUser ? 
             <h3>Welcome {currentUser.username}!</h3> : 
             <h3>Login or Register to create your own routines and activites</h3>
         }
+        </div>
     </div>)
 }
 
