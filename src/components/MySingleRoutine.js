@@ -153,8 +153,9 @@ const MySingleRoutine = (props) => {
   return(
     <div id="whole">
         
-            <div>
+            <div id = "content">
 
+                    <div id="updateFormButtons">
 
                 {
                 currentUser.id == thisRoutine.creatorId ? <div>
@@ -234,13 +235,16 @@ const MySingleRoutine = (props) => {
                 </form>
                 ): ""
                 } */}
+                </div>
 
  { 
                 // if (myRoutines.creatorName == {currentUser.username} )
                 thisRoutine ? 
-                        <div key={thisRoutine.id}> 
+                        <div key={thisRoutine.id} id="singleRoutine"> 
                             
-                            <h2>{thisRoutine.name}</h2>
+                            <h1>{thisRoutine.name}</h1>
+                            <h4>{thisRoutine.goal}</h4>
+                            <h4>Creator ID: {thisRoutine.creatorId}</h4>
                             <div>
                                 <h2>Routines</h2>
                             {theseActivities ? theseActivities.map((activity) => {
@@ -258,8 +262,7 @@ const MySingleRoutine = (props) => {
                                 ) 
                             }) : "No activties for this routine"}
                             </div>
-                            <h4>{thisRoutine.goal}</h4>
-                            <h4>{thisRoutine.creatorName}</h4>
+                            
 
                         </div>
                  : ( <div> No data available </div> 
