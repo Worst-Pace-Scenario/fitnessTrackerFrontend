@@ -22,7 +22,6 @@ const MySingleRoutine = (props) => {
 
     const { id } = useParams()
    
-    //THIS DOESNT WORK BECAUSE ALL THE ROUTINES HAVE THE SAME ID??????????????
     const {activities, routines, currentUser} = props;
 
     const selectedRoutine = routines.filter((routine) => {
@@ -30,7 +29,11 @@ const MySingleRoutine = (props) => {
     })[0] 
 
    const [thisRoutine, setThisRoutine] = useState(selectedRoutine)
-   const [theseActivities, setTheseActivities] = useState(selectedRoutine.activities)
+   const [theseActivities, setTheseActivities] = useState("")
+
+    if(thisRoutine.activities) {
+        setTheseActivities(thisRoutine.activities)
+    }
 
    console.log(theseActivities)
 
@@ -197,7 +200,7 @@ const MySingleRoutine = (props) => {
                                 <select placeholder="Select Activity" onChange={(event) => {
                                     setactivityId(event.target.value)}}>
                                     {
-                                        props.activities.length ? props.activities.map(activity => {
+                                        activities.length ? activities.map(activity => {
                                             return (
                                                 <option key={activity.name} value={activity.id}>{activity.name}</option>
                                             )

@@ -5,7 +5,7 @@ import "./UserRoutines.css"
 const BASE_URL = 'https://worstpacescenario.onrender.com/api/' 
 
 const UserRoutines = (props) => {
-    const { currentUser, routines } = props 
+    const { currentUser, routines, fetchRoutines } = props 
     const [ myRoutines, setMyRoutines ] = useState ([])
     const [ newPostForm, setNewPostForm ] =useState(false)
     const [ Name, setName ] = useState("")
@@ -16,6 +16,7 @@ const UserRoutines = (props) => {
     function toggleNewForm() {
         setNewPostForm(!newPostForm)
     }
+
 
     const fetchMyData = async (event) => {
 
@@ -35,9 +36,10 @@ const UserRoutines = (props) => {
             console.log(error)
         }
     }
+    console.log(Name, Goal)
+    console.log(localStorage.getItem("token"))
 
-    async function newPostRequest (event) {
-        event.preventDefault();
+    async function newPostRequest() {
         try {
             const response = await fetch(`${BASE_URL}routines`, {
                 method: "POST",
@@ -52,12 +54,16 @@ const UserRoutines = (props) => {
                 })
             });
             const result = await response.json()
+            console.log(result)
+
+            result[0].activities = "No activities yet"
 
 
             if(result.error) {
                 alert(result.error)
             }else {
-                setMyRoutines([...myRoutines, result])
+                fetchRoutines()
+                setMyRoutines([...myRoutines, result[0]])
             }
             console.log(result)
             
@@ -83,12 +89,14 @@ const UserRoutines = (props) => {
             {
             newPostForm ? (
                 <div>
-            <form id="createroutineform" onSubmit={newPostRequest}>
+            <form id="createroutineform" onSubmit={(event) => {
+                event.preventDefault()
+                newPostRequest()}}>
                 <input
                 type="text"
                 placeholder="Name of Goal"
                 value={Name}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => {setName(event.target.value)}}
                 />
                 <textarea
                 type="text"
@@ -96,14 +104,14 @@ const UserRoutines = (props) => {
                 cols="100"
                 placeholder="Goal Description"
                 value={Goal}
-                onChange={(event) => setGoal(event.target.value)}
+                onChange={(event) => {setGoal(event.target.value)}}
                 />
                 <input
                 id="checkbox"
                 type="checkbox"
                 placeholder="Make Goal Public"
                 value={isPublic}
-                onChange={(event) => setIsPublic(!isPublic)}
+                onChange={(event) => {setIsPublic(!isPublic)}}
                 />
                 <label
                 htmlFor="checkbox"
