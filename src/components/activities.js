@@ -159,7 +159,8 @@ const Activities = (props) => {
       });
   
       const result = await response.json();
-      setActivities([...activities, result]);
+      console.log(result)
+      setActivities([...activities, result[0]]);
       setNewActivityName('');
       setNewActivityDescription('');
       setErrorMessage('');
